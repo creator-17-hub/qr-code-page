@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>受付確認</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 2em;
+      text-align: center;
+      background-color: #f9f9f9;
+    }
+    img {
+      height: 100px;
+      margin-bottom: 1em;
+    }
+    .box {
+      background: white;
+      border: 1px solid #ccc;
+      border-radius: 12px;
+      padding: 1.5em;
+      margin: 1em auto;
+      max-width: 400px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+    }
+    .alert {
+      color: red;
+      font-weight: bold;
+      margin-top: 2em;
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <img id="logo" src="" alt="店舗ロゴ">
+    <h2>受付番号: <span id="number">--</span></h2>
+    <p><strong><span id="name">--</span> 様</strong></p>
+    <p><span id="people">--</span> 名様</p>
+  </div>
+
+  <p class="alert">こちらの画面をスタッフに提示してください。</p>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const shop = params.get("shop") || "";
+    const number = params.get("number") || "--";
+    const name = decodeURIComponent(params.get("name") || "--");
+    const people = params.get("people") || "--";
+
+    document.getElementById("number").textContent = number;
+    document.getElementById("name").textContent = name;
+    document.getElementById("people").textContent = people;
+
+    // 店舗名に応じたロゴ画像（自由に差し替えOK）
+    let logoSrc = "https://via.placeholder.com/200x100?text=No+Image";
+    switch (shop) {
+      case "いろり家":
+        logoSrc = "https://your-image-host.com/irori.png";
+        break;
+      case "四季彩":
+        logoSrc = "https://your-image-host.com/shikishi.png";
+        break;
+      case "和咲美":
+        logoSrc = "https://your-image-host.com/wasabi.png";
+        break;
+    }
+    document.getElementById("logo").src = logoSrc;
+  </script>
+</body>
+</html>
